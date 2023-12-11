@@ -45,8 +45,8 @@ setup () {
 
 git_source () {
     echo "Getting version '$1' of OpenCV"
-    git clone --depth 1 --branch "$1" https://github.com/opencv/opencv.git
-    git clone --depth 1 --branch "$1" https://github.com/opencv/opencv_contrib.git
+    git clone --depth 1 --branch "$1" https://githubfast.com/opencv/opencv.git
+    git clone --depth 1 --branch "$1" https://githubfast.com/opencv/opencv_contrib.git
 }
 
 install_dependencies () {
@@ -103,11 +103,11 @@ install_dependencies () {
 configure () {
     local CMAKEFLAGS="
         -D BUILD_EXAMPLES=OFF
-        -D BUILD_opencv_python2=ON
+        -D BUILD_opencv_python2=OFF
         -D BUILD_opencv_python3=ON
         -D CMAKE_BUILD_TYPE=RELEASE
         -D CMAKE_INSTALL_PREFIX=${PREFIX}
-        -D CUDA_ARCH_BIN=5.3,6.2,7.2,8.7
+        -D CUDA_ARCH_BIN=8.7
         -D CUDA_ARCH_PTX=
         -D CUDA_FAST_MATH=ON
         -D CUDNN_VERSION='8.0'
@@ -122,7 +122,10 @@ configure () {
         -D WITH_CUDNN=ON
         -D WITH_GSTREAMER=ON
         -D WITH_LIBV4L=ON
-        -D WITH_OPENGL=ON"
+        -D WITH_OPENGL=ON
+	-D WITH_V4L=ON
+	-D WITH_QT=OFF
+	-D WITH_GTK_2_X=ON"
 
     if [[ "$1" != "test" ]] ; then
         CMAKEFLAGS="
